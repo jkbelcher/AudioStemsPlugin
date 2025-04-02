@@ -1,4 +1,4 @@
-package stemco.audio.modulator;
+package studio.jkb.audio.stems.modulator;
 
 import heronarts.glx.ui.UI2dComponent;
 import heronarts.glx.ui.UI2dContainer;
@@ -18,8 +18,8 @@ import heronarts.lx.parameter.ObjectParameter;
 import heronarts.lx.studio.LXStudio;
 import heronarts.lx.studio.ui.modulation.UIModulator;
 import heronarts.lx.studio.ui.modulation.UIModulatorControls;
-import stemco.audio.component.AudioStems;
-import stemco.audio.util.EMA;
+import studio.jkb.audio.stems.component.AudioStems;
+import studio.jkb.audio.stems.util.EMA;
 
 @LXModulator.Global("Audio Stem")
 @LXModulator.Device("Audio Stem")

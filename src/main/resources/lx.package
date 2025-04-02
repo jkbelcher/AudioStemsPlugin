@@ -1,5 +1,15 @@
 {
   name: "Audio Stems",
   mediaDir: "AudioStems",
-  author: "Drevo, ZRanger, Belcher"
+  author: "Drevo, ZRanger, Belcher",
+  url: "https://github.com/jkbelcher/AudioStemsPlugin",
+
+  build: {
+    name: "@project.name@",
+    version: "@project.version@",
+    groupId: "@project.groupId@",
+    artifactId: "@project.artifactId@",
+    lxVersion: "@lx.version@",
+    buildTimestamp: "@maven.build.timestamp@"
+  }
 }

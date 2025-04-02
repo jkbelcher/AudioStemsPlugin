@@ -2,18 +2,37 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- TODO: choose a groupId such as com.heronarts -->
-    <groupId>stemco</groupId>
+    <groupId>studio.jkb</groupId>
     <artifactId>audio-stems</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>Audio Stems Plugin</name>
+    <description>A Chromatik plugin that receives audio stem information over OSC and makes it available for real-time display and mapping.</description>
+    <url>https://github.com/jkbelcher/AudioStemsPlugin</url>
+    <inceptionYear>2024</inceptionYear>
+    <developers>
+        <developer>
+            <name>Justin K. Belcher</name>
+            <email>justin@jkb.studio</email>
+        </developer>
+        <developer>
+            <name>ZRanger</name>
+            <email>finarfin4169@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Will Drevo</name>
+            <email>will.drevo@gmail.com</email>
+        </developer>
+
+    </developers>
+
     <properties>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Currently relevant within an IDE, but this pom is not used when loaded from Packages folder by standalone Chromatik -->
-        <lx.version>1.0.0</lx.version>
+        <lx.version>1.0.1-SNAPSHOT</lx.version>
 
         <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
@@ -21,7 +40,11 @@
         <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-        
+
+        <!-- Optionally don't copy compiled jar to ~/Chromatik/Packages -->
+        <!-- Use when compiling this plugin into an uber-plugin -->
+        <!-- Usage: 'mvn clean install -Dskip-chromatik-package=true' -->
+        <skip-chromatik-package>false</skip-chromatik-package>
     </properties>
     
     <dependencies>
@@ -29,19 +52,19 @@
             <groupId>com.heronarts</groupId>
             <artifactId>lx</artifactId>
             <version>${lx.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.heronarts</groupId>
             <artifactId>glx</artifactId>
             <version>${lx.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>        
         <dependency>
             <groupId>com.heronarts</groupId>
             <artifactId>glxstudio</artifactId>
             <version>${lx.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
   	
@@ -70,12 +93,31 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
+                            <skip>${skip-chromatik-package}</skip>
                             <outputDirectory>${user.home}/Chromatik/Packages</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${project.build.directory}</directory>
                                     <include>${project.artifactId}-${project.version}.jar</include>
                                     <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>filter-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <includes>
+                                        <include>lx.package</include>
+                                    </includes>
+                                    <filtering>true</filtering>
                                 </resource>
                             </resources>
                         </configuration>

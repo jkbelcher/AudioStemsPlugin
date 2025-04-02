@@ -1,4 +1,4 @@
-package stemco.audio.util;
+package studio.jkb.audio.stems.util;
 
 /**
  * Exponential Moving Average with adjustable smoothing time

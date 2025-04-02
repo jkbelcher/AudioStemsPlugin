@@ -11,25 +11,27 @@
  * Chromatik modulators and plugin lead:
  * @author Justin Belcher <justin@jkb.studio>
  */
-package stemco.audio.plugin;
+package studio.jkb.audio.stems.plugin;
 
 import heronarts.lx.LX;
 import heronarts.lx.LXPlugin;
 import heronarts.lx.studio.LXStudio;
 
-import stemco.audio.component.AudioStems;
-import stemco.audio.component.UIAudioStems;
+import studio.jkb.audio.stems.LOG;
+import studio.jkb.audio.stems.component.AudioStems;
+import studio.jkb.audio.stems.component.UIAudioStems;
+import studio.jkb.audio.stems.modulator.AudioStemModulator;
 
 @LXPlugin.Name("Audio Stems")
 public class AudioStemsPlugin implements LXStudio.Plugin {
 
   // This string must be manually updated to match the pom.xml version
-  private static final String VERSION = "0.1.0";
+  private static final String VERSION = "0.1.1-SNAPSHOT";
 
   private AudioStems audioStems;
 
   public AudioStemsPlugin(LX lx) {
-    LX.log("AudioStemPlugin(LX) version: " + VERSION);
+    LOG.log("AudioStemsPlugin(LX) version: " + VERSION);
   }
 
   @Override
@@ -50,14 +52,30 @@ public class AudioStemsPlugin implements LXStudio.Plugin {
     new UIAudioStems(ui, this.audioStems, ui.leftPane.global.getContentWidth())
       .addToContainer(ui.leftPane.global, 2);
 
-    /* Pending upstream availability of performance tools panes
-    new UIAudioStems(ui, this.audioStems, ui.leftPerformanceTools.getContentWidth())
-      .addToContainer(ui.leftPerformanceTools, 0);
-     */
+    new UIAudioStems(ui, this.audioStems, ui.leftPerformance.tools.getContentWidth())
+      .addToContainer(ui.leftPerformance.tools, 0);
   }
 
   @Override
   public void dispose() {
     this.audioStems.dispose();
   }
+
+
+  /**
+   * Projects that import this library and are NOT an LXPackage (such as a custom build)
+   * should call this method from their initialize().
+   */
+  public static void registerComponents(LX lx) {
+    lx.registry.addModulator(AudioStemModulator.class);
+  }
+
+  /**
+   * Projects that import this library and are NOT an LXPackage (such as a custom build)
+   * should call this method from their initializeUI().
+   */
+  public static void registerUIComponents(LXStudio lx, LXStudio.UI ui) {
+
+  }
+
 }

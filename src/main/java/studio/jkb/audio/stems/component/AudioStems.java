@@ -1,4 +1,4 @@
-package stemco.audio.component;
+package studio.jkb.audio.stems.component;
 
 import heronarts.lx.LX;
 import heronarts.lx.LXComponent;
@@ -8,6 +8,10 @@ import heronarts.lx.parameter.BoundedFunctionalParameter;
 import heronarts.lx.parameter.BoundedParameter;
 import heronarts.lx.parameter.CompoundParameter;
 import heronarts.lx.parameter.LXParameter.Units;
+import studio.jkb.audio.stems.LOG;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Top-level component for Audio Stems, runs as a child of LX Engine
@@ -15,7 +19,7 @@ import heronarts.lx.parameter.LXParameter.Units;
 public class AudioStems extends LXComponent implements LXOscListener {
 
   // TODO: make this adjustable from a config file?
-  public static final String PATH_STEM = "/audiostem/";
+  public static final String PATH_STEM = "/stem/";
 
   // TODO: maybe retire these, consider using LX OSC routing to raw parameters
   // and discard custom OSC input handling. **UNLESS** we want a configurable
@@ -91,6 +95,8 @@ public class AudioStems extends LXComponent implements LXOscListener {
     return raw.getValue() * (1.0 + this.gain.getValue());
   }
 
+  private final Set<String> invalidAddresses = new HashSet<>();
+
   public AudioStems(LX lx) {
     super(lx, "audioStems");
     current = this;
@@ -131,8 +137,10 @@ public class AudioStems extends LXComponent implements LXOscListener {
       } else if (stem.equals(PATH_OTHER)) {
         handleOther(value);
       } else {
-        LX.warning("Unknown audio stem path: " + address);
-        return;
+        if (!this.invalidAddresses.contains(address)) {
+          LOG.warning("Unknown audio stem path received over OSC: " + address);
+          this.invalidAddresses.add(address);
+        }
       }
     }
   }

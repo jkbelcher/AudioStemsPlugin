@@ -1,4 +1,4 @@
-package stemco.audio.component;
+package studio.jkb.audio.stems.component;
 
 import heronarts.glx.ui.UI;
 import heronarts.glx.ui.UI2dContainer;
