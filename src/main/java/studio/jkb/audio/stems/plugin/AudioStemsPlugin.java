@@ -22,7 +22,7 @@ import studio.jkb.audio.stems.modulator.AudioStemModulator;
 public class AudioStemsPlugin implements LXStudio.Plugin {
 
   // This string must be manually updated to match the pom.xml version
-  private static final String VERSION = "0.1.1-SNAPSHOT";
+  private static final String VERSION = "0.1.2-SNAPSHOT";
 
   private AudioStems audioStems;
 
