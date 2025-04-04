@@ -1,16 +1,12 @@
 /**
- * Copyright 2024- Will Drevo, Jon Marbry, Justin Belcher
- * <p>
- * TODO: tune this up as needed
- * <p>
- * Audio stems model and runner by:
- *
+ * Copyright 2024- Justin K. Belcher, Will Drevo, Jon Marbry
+ * Chromatik plugin and modulators:
+ * @author Justin K. Belcher <justin@jkb.studio>
+ * Audio stems model and runner:
  * @author Will Drevo <will.drevo@gmail.com>
  * @author Jon Marbry <finarfin4169@gmail.com>
- * <p>
- * Chromatik modulators and plugin lead:
- * @author Justin Belcher <justin@jkb.studio>
  */
+
 package studio.jkb.audio.stems.plugin;
 
 import heronarts.lx.LX;
@@ -43,9 +39,7 @@ public class AudioStemsPlugin implements LXStudio.Plugin {
   }
 
   @Override
-  public void initializeUI(LXStudio lxStudio, LXStudio.UI ui) {
-
-  }
+  public void initializeUI(LXStudio lxStudio, LXStudio.UI ui) { }
 
   @Override
   public void onUIReady(LXStudio lxStudio, LXStudio.UI ui) {
@@ -61,21 +55,12 @@ public class AudioStemsPlugin implements LXStudio.Plugin {
     this.audioStems.dispose();
   }
 
-
   /**
    * Projects that import this library and are NOT an LXPackage (such as a custom build)
    * should call this method from their initialize().
    */
   public static void registerComponents(LX lx) {
     lx.registry.addModulator(AudioStemModulator.class);
-  }
-
-  /**
-   * Projects that import this library and are NOT an LXPackage (such as a custom build)
-   * should call this method from their initializeUI().
-   */
-  public static void registerUIComponents(LXStudio lx, LXStudio.UI ui) {
-
   }
 
 }

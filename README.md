@@ -1,6 +1,6 @@
 ## Audio Stems
 
-This is a Chromatik plugin containing Audio Stems system components and modulators.
+This is a Chromatik plugin containing Audio Stems components and modulators.
 
 ### Building and Installation
 
@@ -15,6 +15,5 @@ _Note that `mvn install` copies the JAR into your root `~/Chromatik/Packages` fo
 
 - Confirm the package is installed under Left Pane -> Content.
 - You may need to check the box next to the plugin to enable it.
-- After enabling the plugin, Chromatik may need to be restarted before
-the top-level UI component is visible.
-- When it is working the Audio Stems component will be visible under Left Pane -> Global, below the AUDIO section.
+- After enabling the plugin, restart Chromatik.
+- After Chromatik restarts, the AUDIO STEMS ui section should be visible under Left Pane -> Global, below the AUDIO section.
