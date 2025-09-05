@@ -18,16 +18,17 @@ import studio.jkb.audio.stems.component.AudioStems;
 import studio.jkb.audio.stems.component.UIAudioStems;
 import studio.jkb.audio.stems.modulator.AudioStemModulator;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 @LXPlugin.Name("Audio Stems")
 public class AudioStemsPlugin implements LXStudio.Plugin {
-
-  // This string must be manually updated to match the pom.xml version
-  private static final String VERSION = "0.1.2-SNAPSHOT";
 
   private AudioStems audioStems;
 
   public AudioStemsPlugin(LX lx) {
-    LOG.log("AudioStemsPlugin(LX) version: " + VERSION);
+    LOG.log("AudioStemsPlugin(LX) version: " + loadVersion());
   }
 
   @Override
@@ -63,4 +64,19 @@ public class AudioStemsPlugin implements LXStudio.Plugin {
     lx.registry.addModulator(AudioStemModulator.class);
   }
 
+  /**
+   * Loads 'audioStems.properties', after maven resource filtering has been applied.
+   */
+  private String loadVersion() {
+    String version = "";
+    Properties properties = new Properties();
+    try (InputStream inputStream =
+           getClass().getClassLoader().getResourceAsStream("audioStems.properties")) {
+      properties.load(inputStream);
+      version = properties.getProperty("audioStems.version");
+    } catch (IOException e) {
+      LOG.error("Failed to load version information " + e);
+    }
+    return version;
+  }
 }
