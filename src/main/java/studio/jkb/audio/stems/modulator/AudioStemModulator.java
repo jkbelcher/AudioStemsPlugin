@@ -15,6 +15,7 @@ import heronarts.glx.ui.UI2dContainer.Position;
 import heronarts.glx.ui.component.UIKnob;
 import heronarts.glx.ui.component.UIMeter;
 import heronarts.lx.LXCategory;
+import heronarts.lx.LXComponent;
 import heronarts.lx.modulator.LXModulator;
 import heronarts.lx.modulator.LXWaveshape;
 import heronarts.lx.osc.LXOscComponent;
@@ -28,11 +29,13 @@ import heronarts.lx.studio.LXStudio;
 import heronarts.lx.studio.ui.modulation.UIModulator;
 import heronarts.lx.studio.ui.modulation.UIModulatorControls;
 import studio.jkb.audio.stems.component.AudioStems;
+import studio.jkb.audio.stems.plugin.AudioStemsPlugin;
 import studio.jkb.audio.stems.util.EMA;
 
 @LXModulator.Global("Audio Stem")
 @LXModulator.Device("Audio Stem")
 @LXCategory(LXCategory.AUDIO)
+@LXComponent.PluginRequired(AudioStemsPlugin.class)
 public class AudioStemModulator extends LXModulator implements LXOscComponent, LXNormalizedParameter, UIModulatorControls<AudioStemModulator> {
 
   public static final double MAX_SMOOTHING_MS = 1000;
